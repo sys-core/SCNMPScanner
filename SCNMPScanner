@@ -1,0 +1,27 @@
+__author__ = 'SYSTEM CORE TEAM'
+import nmap
+import optparse
+
+def nmapScan(tgtHost, tgtPort):
+    nmScan = nmap.PortScanner()
+    nmScan.scan(tgtHost, tgtPort)
+    stete=nmScan[tgtHost]['tcp'][int(tgtPort)]['state']
+    print"[*]" + tgtHost + " tcp/"+tgtPort +" "+state
+
+def main():
+    analyseur = optparse.OptionParser('usage%prog'+\
+                                      'H<target host> -p <target port>')
+    analyseur.add_option('-H', dest='tgtHost', type='string', \
+                         help='Spécifiez Hôte cible')
+    analyseur.add_option('-p', dest='tgtPort', type='string', \
+                         help='Spécifiez Port cible [s] séparé[s] par ue virgule')
+    (options, args) = analyseur.parse_args()
+    tgtHost = options.tgtHost
+    tgtPorts = str(options.tgtPort).split(', ')
+    if (tgtHost == None) | (tgtPort == None):
+        print analyseur.usage
+        exit(0)
+    for tgtPort in tgtPorts:
+    nmapScan(tgtHost, tgtPorts)
+if __name__ == "__main__":
+    main()
